@@ -6,8 +6,10 @@ sca;
 close all;
 clearvars;
 
-% 在官方demo中，使用了默认配置 PsychDefaultSetup(2);
-% 但是大多数人都会在笔记本电脑上完成工作，大多数的笔记本电脑不会通过PTB的检测，因此要跳过这些检测
+% 在官方demo中，使用了默认配置 PsychDefaultSetup(2)，我们暂时不使用这种默认配置;
+% PsychDefaultSetup(2)
+
+% 大多数人都会在笔记本电脑上完成工作，大多数的笔记本电脑不会通过PTB的检测，因此要跳过这些检测
 Screen('Preference', 'SkipSyncTest', 1);
 
 % 检测当前连在电脑的屏幕，返回一个数组，这个数组记录了当前屏幕的编号，如果只有一个屏幕，则默认编号为0

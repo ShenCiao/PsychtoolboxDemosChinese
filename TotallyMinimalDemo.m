@@ -1,13 +1,15 @@
 %%
-% 该文档所有代码都可以直接运行
+% 该教程所有代码都可以直接运行
 %%
 % 清空现有屏幕和变量
 sca;
 close all;
 clearvars;
 
-% 在官方demo中，使用了默认配置 PsychDefaultSetup(2);
-% 但是大多数人都会在笔记本电脑上完成工作，大多数的笔记本电脑不会通过PTB的检测，因此要跳过这些检测
+% 在官方demo中，使用了默认配置 PsychDefaultSetup(2)，我们暂时不使用这种默认配置;
+% PsychDefaultSetup(2)
+
+% 大多数人都会在笔记本电脑上完成工作，大多数的笔记本电脑不会通过PTB的检测，因此要跳过这些检测
 Screen('Preference', 'SkipSyncTest', 1);
 
 % 由于一台主机上可以安装多个屏幕，所以要检测当前有哪些屏幕连在电脑上
