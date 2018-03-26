@@ -32,7 +32,7 @@ grey = white / 2;
 
 % 与KbStrokeWait类似的还有KbWait，KbWait立即检测当前是否有按键被按下，如果有，
 % 则继续执行程序；KbStrokeWait则会等待当前所有的按键全部释放，再检测是否有新的按键被按下，如果有，则继续执行程序。
-% 按下任意键程序继续执行
+% 按下任意键继续执行程序
 KbStrokeWait;
 
 % 关闭所有窗口
