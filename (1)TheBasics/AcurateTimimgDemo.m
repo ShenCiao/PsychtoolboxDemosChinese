@@ -59,8 +59,8 @@ waitframes = 1;
 
 for frame = 1:numFrames
 
-    % 使用红色的全屏矩形填充窗口（没有指定rect，默认为全屏）
-    Screen('FillRect', window, [0.8 0.2 0.2]*255);
+    % 使用灰色的全屏矩形填充窗口（没有指定rect，默认为全屏）
+    Screen('FillRect', window, [0.5 0.5 0.5]*white);
 
     % 翻转窗口
     Screen('Flip', window);
@@ -73,14 +73,20 @@ end
 
 % 现在我们指定一个时间戳，利用这个时间戳指定PTB在屏幕上绘制图像的时间点，在例子中使用了
 % 一半的屏幕刷新间隔。这种方式可以让我们精准的得知PTB是否绘制了刺激。
+% vbl为时间戳，在PTB中用于精准控制刺激呈现的时间，它以秒为单位记录了本次Flip窗口开始的时间，
+% 在MATLAB里它是一个双精度浮点数（double）
+% 
 
 vbl = Screen('Flip', window);
 for frame = 1:numFrames
 
     % 把屏幕填充为红色
-    Screen('FillRect', window, [0.5 0 0]*255);
+    Screen('FillRect', window, [0.5 0 0]*white);
 
-    % Flip to the screen
+    % Screen('Flip')的第三个参数可以传入一个时间戳，指定开始刷新的时间点，到了这个时间点
+    % PTB会先等待下次屏幕刷新开始，再与屏幕刷新同步地绘制缓存中的图像，因此尽管例子中
+    % 减去了0.5，我们实际上还是在以一帧一绘制的速度在绘制图像
+    % 需要注意，返回的时间戳代表的时间点，是开始绘图的时候，也就是下次屏幕刷新的时间点。
     vbl = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
 
 end
@@ -118,12 +124,12 @@ vbl = Screen('Flip', window);
 for frame = 1:numFrames
 
     % Color the screen blue
-    Screen('FillRect', window, [0 0 0.5]*255);
+    Screen('FillRect', window, [0 0 0.5]*white);
 
     % 告诉MATLAB filp前不再有绘制命令
     Screen('DrawingFinished', window);
 
-    % 额外的计算
+    % 额外的计算(如果有的话)
 
     % Flip to the screen
     vbl = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);

@@ -59,3 +59,9 @@ pixelSize = Screen('PixelSize', window);
 % 在官方demo中使用了PsychDefaultSetup(2)，这里面调用了一个函数Screen('ColorRange', window, 1,
 % [], 1)，使得最大亮度值变成了1，因此官方demo中表示应该为1
 maxLum = Screen('ColorRange', window);
+
+% 暂停程序，按任意键继续执行程序
+KbStrokeWait;
+
+% "sca" 等效于 "Screen CloseAll"
+sca;
