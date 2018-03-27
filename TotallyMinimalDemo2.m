@@ -10,10 +10,13 @@ clearvars;
 % PsychDefaultSetup(2)
 
 % 大多数人都会在笔记本电脑上完成工作，大多数的笔记本电脑不会通过PTB的检测，因此要跳过这些检测
-Screen('Preference', 'SkipSyncTest', 1);
+Screen('Preference', 'SkipSyncTests', 1);
 
 % 检测当前连在电脑的屏幕，返回一个数组，这个数组记录了当前屏幕的编号，如果只有一个屏幕，则默认编号为0
 screens = Screen('Screens');
+
+% 选择屏幕
+screenNumber = max(screens);
 
 % 获得最亮和最暗的颜色值，可以默认它们分别为0与255
 white = WhiteIndex(screenNumber);

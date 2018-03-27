@@ -10,7 +10,7 @@ clearvars;
 % PsychDefaultSetup(2)
 
 % 大多数人都会在笔记本电脑上完成工作，大多数的笔记本电脑不会通过PTB的检测，因此要跳过这些检测
-Screen('Preference', 'SkipSyncTest', 1);
+Screen('Preference', 'SkipSyncTests', 1);
 
 % 由于一台主机上可以安装多个屏幕，所以要检测当前有哪些屏幕连在电脑上
 % 函数返回一个数组，这个数组记录了当前屏幕的编号，如果你只有一个屏幕，则默认编号为0

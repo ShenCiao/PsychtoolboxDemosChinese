@@ -1,17 +1,17 @@
 %%
-% 
-
+% Screen('Flip')与屏幕的竖直刷新同步，也就是说程序运行到了Screen('Flip')的时刻，如果屏幕的本次刷新没有结束
+% Filp会暂停程序，等待下次刷新屏幕开始，再绘制缓存中的图像。
 %%
 % 清空现有窗口和变量
 sca;
 close all;
 clearvars;
 
-% 使用默认配置 2，这种配置下PTB要求的颜色值变为0～1的浮点数
-PsychDefaultSetup(2)
-
 % 跳过同步性检测
-Screen('Preference', 'SkipSyncTest', 1);
+Screen('Preference', 'SkipSyncTests', 1);
+
+% 检测当前连在电脑的屏幕，返回一个数组，这个数组记录了当前屏幕的编号，如果只有一个屏幕，则默认编号为0
+screens = Screen('Screens');
 
 % 选择屏幕
 screenNumber = max(screens);
@@ -50,19 +50,86 @@ waitframes = 1;
 % 
 %--------------------------------------------------------------------------
 
-% ???-
+% -----
 % 例子1
-% ???-
+% -----
 
-% 首先我们将展示一种较差的控制刺激呈现时间的方式，这种呈现刺激的方式将导致刺激出现时间不准确，有些实验需要精确控制时间到毫秒级别，这种方式不推荐使用
+% 首先我们将展示一种较差的精确控制刺激呈现时间的方式，这种方式可以在有硬件缺陷的电脑上使用，
+% 但这种方式给刺激的呈现造成了太多的随机性，这种方式不推荐使用
+
 for frame = 1:numFrames
 
-    % 使用灰色填充窗口
-    Screen('FillRect', window, [0.5 0.5 0.5]);
+    % 使用红色的全屏矩形填充窗口（没有指定rect，默认为全屏）
+    Screen('FillRect', window, [0.8 0.2 0.2]*255);
 
     % 翻转窗口
     Screen('Flip', window);
 
 end
 
+% -----
+% 例子2
+% -----
 
+% 现在我们指定一个时间戳，利用这个时间戳指定PTB在屏幕上绘制图像的时间点，在例子中使用了
+% 一半的屏幕刷新间隔。这种方式可以让我们精准的得知PTB是否绘制了刺激。
+
+vbl = Screen('Flip', window);
+for frame = 1:numFrames
+
+    % 把屏幕填充为红色
+    Screen('FillRect', window, [0.5 0 0]*255);
+
+    % Flip to the screen
+    vbl = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
+
+end
+
+% -----
+% 例子3
+% -----
+
+% 这个例子中和例子2完全相同，但是将PTB的优先级设置为最高，这说明PTB相比于其它程序会占用最高的系统资源，
+% 在现代的计算机中，PTB几乎不可能超载系统资源，所以建议你在打开窗口后便设置最高优先级
+
+Priority(topPriorityLevel);
+vbl = Screen('Flip', window);
+for frame = 1:numFrames
+
+    % Color the screen purple
+    Screen('FillRect', window, [0.5 0 0.5]*255);
+
+    % Flip to the screen
+    vbl = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
+
+end
+Priority(0);
+
+% -----
+% 例子4
+% -----
+
+% 最后和例子3相同，但是我们在绘图指令和filp之间添加一行代码，告知PTB这期间不再有绘图命令
+% 如果你需要在这期间让MATLAB做一些其它的计算操作（例如计算刺激下一帧的位置），这样做可以节省
+% 电脑资源。如果你不需要额外的计算，使用例子3即可。
+
+Priority(topPriorityLevel);
+vbl = Screen('Flip', window);
+for frame = 1:numFrames
+
+    % Color the screen blue
+    Screen('FillRect', window, [0 0 0.5]*255);
+
+    % 告诉MATLAB filp前不再有绘制命令
+    Screen('DrawingFinished', window);
+
+    % 额外的计算
+
+    % Flip to the screen
+    vbl = Screen('Flip', window, vbl + (waitframes - 0.5) * ifi);
+
+end
+Priority(0);
+
+% 关闭所有窗口
+sca;
