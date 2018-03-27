@@ -30,6 +30,8 @@ grey = white / 2;
 
 % 官方demo中使用PsychImaging打开窗口，PsychImaging在PTB中是更底层的代码，使用Screen即可
 % 打开一个窗口，将背景设置为灰色，返回的第一个值为窗口的句柄（实际上它是一个double，可以说是窗口的编号），第二个值为1*4的向量，前两个值为屏幕左上角的X（水平）、Y（竖直）坐标，为0,0，后两个值为屏幕右下角的坐标值，为窗口的大小。
+% 所谓"句柄"，是"把手"（门把手）文邹邹的叫法，门提供了一个把手让人能够方便的开关它，类似的
+% 'OpenWindow'提供了一个窗口句柄让使用者可以操作这个窗口，在下面的函数中，我们都要传入这个句柄来指定窗口。
 [window, windowRect] = Screen('OpenWindow', screenNumber, grey);
 
 % 与KbStrokeWait类似的还有KbWait，KbWait立即检测当前是否有按键被按下，如果有，
