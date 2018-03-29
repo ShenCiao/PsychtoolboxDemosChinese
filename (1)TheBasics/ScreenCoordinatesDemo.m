@@ -31,8 +31,8 @@ ifi = Screen('GetFlipInterval', window);
 
 %%
 % 设置默认的字体和文字大小
-Screen('TextFont', window, 'Ariel');
-Screen('TextSize', window, 50);
+Screen('TextFont', window, 'Arial');    % 官方Demos出错的'Arial'拼成了'Ariel'
+Screen('TextSize', window, 50); 
 
 % 获取窗口中心坐标
 [xCenter, yCenter] = RectCenter(windowRect);
