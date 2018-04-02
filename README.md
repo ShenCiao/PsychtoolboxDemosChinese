@@ -15,5 +15,9 @@
   4. [Wait Frames Demo](https://github.com/IQAQ/PsychtoolboxDemosChinese/blob/master/(1)TheBasics/WaitFramesDemo.m)
   5. [Screen Coordinates Demo](https://github.com/IQAQ/PsychtoolboxDemosChinese/blob/master/(1)TheBasics/ScreenCoordinatesDemo.m)
 
+- DrawingBasicShapesAndDots
 
+  这部分的Demo将演示如何绘制最基本的静止形状，线条和点。这部分包含了非常多PTB的核心功能，为理解以后的资料打下坚实的基础。
+
+  1. [SingleDotDemo](https://github.com/IQAQ/PsychtoolboxDemosChinese/blob/master/(2)DrawingBasicShapesAndDots/SingleDotDemo.m)	这是个非常简单的Demo，程序在屏幕中的随机位置绘制单个点
 
